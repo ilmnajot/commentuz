@@ -34,8 +34,4 @@ public class BaseEntity {
     @LastModifiedBy
     private String lastModifiedBy;
 
-    @Column(nullable = false)
-    @ColumnDefault("false")
-    private boolean deleted = false;
-
 }

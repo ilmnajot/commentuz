@@ -1,8 +1,10 @@
 package uz.projavadev.commentuz.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import uz.projavadev.commentuz.dto.UserRole;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,6 +21,10 @@ public class User extends BaseEntity {
 
     private String email;
 
+    @Column(nullable = false)
+    @ColumnDefault("false")
+    private boolean confirmed=false;
+
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.USER;
 
@@ -26,4 +32,3 @@ public class User extends BaseEntity {
 
 
 }
-//test push
