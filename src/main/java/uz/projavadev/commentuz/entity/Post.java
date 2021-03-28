@@ -2,11 +2,7 @@ package uz.projavadev.commentuz.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.List;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -17,13 +13,14 @@ public class Post extends BaseEntity {
 
     private String image;
 
-    @OneToMany
-    private Set<Comment> comments;
+    @Column(nullable = false)
+    private Long viewCount = 0L;
 
-    private Long userId;
+    @Column(nullable = false)
+    private Long voteCount = 0L;
 
     @ManyToMany
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @ManyToOne
     private SubCategory subCategoryId;
