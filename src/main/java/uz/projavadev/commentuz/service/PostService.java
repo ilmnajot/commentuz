@@ -6,14 +6,16 @@ import uz.projavadev.commentuz.dto.PostDto;
 import uz.projavadev.commentuz.dto.PostForm;
 import uz.projavadev.commentuz.dto.PostListItemDto;
 
+import java.io.IOException;
+
 public interface PostService {
     Page<PostListItemDto> findAllByCategory(Long categoryId, Pageable pageable);
 
     PostDto findOne(Long id);
 
-    PostListItemDto add(PostForm form);
+    PostListItemDto add(PostForm form) throws IOException;
 
-    PostListItemDto update(Long id, PostForm form);
+    PostListItemDto update(Long id, PostForm form) throws IOException;
 
     void delete(Long id);
 

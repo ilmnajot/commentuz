@@ -3,6 +3,7 @@ package uz.projavadev.commentuz.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import uz.projavadev.commentuz.dto.PostDto;
 import uz.projavadev.commentuz.dto.PostForm;
 import uz.projavadev.commentuz.dto.PostListItemDto;
@@ -16,7 +17,12 @@ import uz.projavadev.commentuz.service.PostService;
 import uz.projavadev.commentuz.service.TagService;
 
 import javax.persistence.EntityManager;
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,12 +57,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostListItemDto add(PostForm form) {
+    public PostListItemDto add(PostForm form) throws IOException {
         return save(new Post(), form);
     }
 
     @Override
-    public PostListItemDto update(Long id, PostForm form) {
+    public PostListItemDto update(Long id, PostForm form) throws IOException {
         return save(postRepository.getOne(id), form);
     }
 
@@ -65,13 +71,9 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(id);
     }
 
-    private PostListItemDto save(Post post, PostForm form) {
-
-        File file = new File("D:\\upload");
-
-//        file
-
-        post.setImage(form.getImage().getName());
+    private PostListItemDto save(Post post, PostForm form) throws IOException {
+        String filename = form.getImage().getOriginalFilename();
+        post.setImage(filename);
         post.setSubCategoryId(entityManager.getReference(SubCategory.class, form.getSubcategoryIid()));
         post.setName(form.getName());
         if (form.getTags() != null) {
@@ -83,6 +85,23 @@ public class PostServiceImpl implements PostService {
             }).collect(Collectors.toSet()));
         }
         postRepository.save(post);
+        String uploadDir = "post-photos/" + post.getId();
+        saveFile(uploadDir,filename,form.getImage());
         return new PostDto.Builder(post).build();
+    }
+    private static void saveFile(String uploadDir, String fileName,
+                                MultipartFile multipartFile) throws IOException {
+        Path uploadPath = Paths.get(uploadDir);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ioe) {
+            throw new IOException("Could not save image file: " + fileName, ioe);
+        }
     }
 }
