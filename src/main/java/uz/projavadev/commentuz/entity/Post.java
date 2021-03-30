@@ -24,4 +24,11 @@ public class Post extends BaseEntity {
 
     @ManyToOne
     private SubCategory subCategoryId;
+
+    @Transient
+    public Post incrementViewCount() {
+        this.viewCount++;
+        return this;
+    }
+
 }

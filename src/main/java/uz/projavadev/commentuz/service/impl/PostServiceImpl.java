@@ -36,9 +36,9 @@ public class PostServiceImpl implements PostService {
         return save(new Post(), form);
     }
 
-    private PostListItemDto save(Post post, PostForm form){
+    private PostListItemDto save(Post post, PostForm form) {
 
-        File file=new File("D:\\upload");
+        File file = new File("D:\\upload");
 
 //        file
 
