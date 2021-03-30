@@ -57,13 +57,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostListItemDto add(PostForm form) throws IOException {
-        return save(new Post(), form);
+    public PostListItemDto add(MultipartFile image, PostForm form) throws IOException {
+        return save(new Post(), image, form);
     }
 
     @Override
-    public PostListItemDto update(Long id, PostForm form) throws IOException {
-        return save(postRepository.getOne(id), form);
+    public PostListItemDto update(Long id, MultipartFile image, PostForm form) throws IOException {
+        return save(postRepository.getOne(id), image, form);
     }
 
     @Override
@@ -71,8 +71,8 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(id);
     }
 
-    private PostListItemDto save(Post post, PostForm form) throws IOException {
-        String filename = form.getImage().getOriginalFilename();
+    private PostListItemDto save(Post post, MultipartFile image, PostForm form) throws IOException {
+        String filename = image.getOriginalFilename();
         post.setImage(filename);
         post.setSubCategoryId(entityManager.getReference(SubCategory.class, form.getSubcategoryIid()));
         post.setName(form.getName());
@@ -86,7 +86,7 @@ public class PostServiceImpl implements PostService {
         }
         postRepository.save(post);
         String uploadDir = "post-photos/" + post.getId();
-        saveFile(uploadDir, filename, form.getImage());
+        saveFile(uploadDir, filename, image);
         return new PostDto.Builder(post).build();
     }
 
