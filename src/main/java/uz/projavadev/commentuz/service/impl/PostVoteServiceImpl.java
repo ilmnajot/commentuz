@@ -27,17 +27,24 @@ public class PostVoteServiceImpl implements PostVoteService {
 
     @Override
     public PostVoteDto upVote(Long postId, String username) {
-        return null;
-    }
-
-    @Override
-    public PostVoteDto downVote(Long postId, String username) {
         return vote(postId, VoteType.UP, username);
     }
 
     @Override
-    public PostVoteDto revertVote(Long postId, String username) {
+    public PostVoteDto downVote(Long postId, String username) {
         return vote(postId, VoteType.DOWN, username);
+    }
+
+    @Override
+    public PostVoteDto revertVote(Long postId, String username) {
+        Optional<PostVote> optionalPostVote = postVoteRepository.findByPostId(postId, username);
+        if (optionalPostVote.isPresent()) {
+            postVoteRepository.deleteById(optionalPostVote.get().getId());
+            PostVoteDto dto = PostVoteDto.toDto(postVoteRepository.getOne(postId));
+            reCalculatePostVote(dto.getPostId());
+            return dto;
+        }
+        return null;
     }
 
     private PostVoteDto vote(Long postId, VoteType type, String username) {
@@ -54,7 +61,7 @@ public class PostVoteServiceImpl implements PostVoteService {
     }
 
     private void reCalculatePostVote(Long postId) {
-        Post post = new Post();
+        Post post = postRepository.getOne(postId);
         Long voteCount = postVoteRepository.countByPost(post, VoteType.UP)
                 - postVoteRepository.countByPost(post, VoteType.DOWN);
         post.setVoteCount(voteCount);

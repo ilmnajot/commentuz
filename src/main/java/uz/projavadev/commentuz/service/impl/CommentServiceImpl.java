@@ -26,6 +26,16 @@ public class CommentServiceImpl implements CommentService {
         return save(new Comment(), form);
     }
 
+    @Override
+    public CommentDto update(Long id, CommentForm form) {
+        return save(repository.getOne(id), form);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
 
     private CommentDto save(Comment comment, CommentForm form) {
         comment.setPost(entityManager.getReference(Post.class, form.getPostId()));
