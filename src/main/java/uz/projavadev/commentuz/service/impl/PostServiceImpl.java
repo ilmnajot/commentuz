@@ -86,11 +86,12 @@ public class PostServiceImpl implements PostService {
         }
         postRepository.save(post);
         String uploadDir = "post-photos/" + post.getId();
-        saveFile(uploadDir,filename,form.getImage());
+        saveFile(uploadDir, filename, form.getImage());
         return new PostDto.Builder(post).build();
     }
+
     private static void saveFile(String uploadDir, String fileName,
-                                MultipartFile multipartFile) throws IOException {
+                                 MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
 
         if (!Files.exists(uploadPath)) {
