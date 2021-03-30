@@ -20,4 +20,16 @@ public class CategoryServiceImpl implements CategoryService {
         category.setName(dto.getName());
         return CategoryDto.toDto(repository.save(category));
     }
+
+    @Override
+    public CategoryDto update(Long id, CategoryDto dto) {
+        Category category = repository.getOne(id);
+        category.setName(dto.getName());
+        return CategoryDto.toDto(repository.save(category));
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
