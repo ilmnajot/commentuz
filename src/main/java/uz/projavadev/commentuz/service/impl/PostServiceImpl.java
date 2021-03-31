@@ -13,8 +13,8 @@ import uz.projavadev.commentuz.entity.SubCategory;
 import uz.projavadev.commentuz.entity.Tag;
 import uz.projavadev.commentuz.repository.CommentRepository;
 import uz.projavadev.commentuz.repository.PostRepository;
+import uz.projavadev.commentuz.repository.TagRepository;
 import uz.projavadev.commentuz.service.PostService;
-import uz.projavadev.commentuz.service.TagService;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -23,8 +23,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -32,13 +33,13 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final EntityManager entityManager;
-    private final TagService tagService;
+    private final TagRepository tagRepository;
 
-    public PostServiceImpl(PostRepository postRepository, CommentRepository commentRepository, EntityManager entityManager, TagService tagService) {
+    public PostServiceImpl(PostRepository postRepository, CommentRepository commentRepository, EntityManager entityManager, TagRepository tagRepository) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.entityManager = entityManager;
-        this.tagService = tagService;
+        this.tagRepository = tagRepository;
     }
 
 
@@ -57,13 +58,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostListItemDto add(MultipartFile image, PostForm form) throws IOException {
-        return save(new Post(), image, form);
+    public PostListItemDto add(PostForm form) throws IOException {
+        return save(new Post(), form);
     }
 
     @Override
-    public PostListItemDto update(Long id, MultipartFile image, PostForm form) throws IOException {
-        return save(postRepository.getOne(id), image, form);
+    public PostListItemDto update(Long id, PostForm form) throws IOException {
+        return save(postRepository.getOne(id), form);
     }
 
     @Override
@@ -71,22 +72,19 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(id);
     }
 
-    private PostListItemDto save(Post post, MultipartFile image, PostForm form) throws IOException {
-        String filename = image.getOriginalFilename();
+    private PostListItemDto save(Post post, PostForm form) throws IOException {
+        String filename = form.getImage().getOriginalFilename();
         post.setImage(filename);
         post.setSubCategoryId(entityManager.getReference(SubCategory.class, form.getSubcategoryIid()));
-        post.setName(form.getName());
-        if (form.getTags() != null) {
-            post.setTags(form.getTags().stream().map(tagDto -> {
-                if (tagDto.getId() == null) {
-                    tagDto = tagService.add(tagDto);
-                }
-                return entityManager.getReference(Tag.class, tagDto.getId());
-            }).collect(Collectors.toSet()));
+        Set<Tag> tags =new HashSet<>();
+        for (Long id : form.getTagId()) {
+            tags.add(tagRepository.getOne(id));
         }
+        post.setTags(tags);
+        post.setName(form.getName());
         postRepository.save(post);
         String uploadDir = "post-photos/" + post.getId();
-        saveFile(uploadDir, filename, image);
+        saveFile(uploadDir, filename, form.getImage());
         return new PostDto.Builder(post).build();
     }
 

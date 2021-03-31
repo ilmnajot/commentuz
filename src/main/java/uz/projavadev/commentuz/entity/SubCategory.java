@@ -12,5 +12,5 @@ public class  SubCategory extends BaseEntity {
     private String name;
 
     @ManyToOne
-    private Category categoryId;
+    private Category category;
 }

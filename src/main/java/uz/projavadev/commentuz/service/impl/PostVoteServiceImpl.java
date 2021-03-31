@@ -37,7 +37,7 @@ public class PostVoteServiceImpl implements PostVoteService {
 
     @Override
     public PostVoteDto revertVote(Long postId, String username) {
-        Optional<PostVote> optionalPostVote = postVoteRepository.findByPostId(postId, username);
+        Optional<PostVote> optionalPostVote = postVoteRepository.findByPostIdAndCreatedBy(postId, username);
         if (optionalPostVote.isPresent()) {
             postVoteRepository.deleteById(optionalPostVote.get().getId());
             PostVoteDto dto = PostVoteDto.toDto(postVoteRepository.getOne(postId));
@@ -48,7 +48,7 @@ public class PostVoteServiceImpl implements PostVoteService {
     }
 
     private PostVoteDto vote(Long postId, VoteType type, String username) {
-        Optional<PostVote> optionalPostVote = postVoteRepository.findByPostId(postId, username);
+        Optional<PostVote> optionalPostVote = postVoteRepository.findByPostIdAndCreatedBy(postId, username);
         if (optionalPostVote.isPresent()) {
             PostVote vote = new PostVote();
             vote.setPost(entityManager.getReference(Post.class, postId));
@@ -62,8 +62,8 @@ public class PostVoteServiceImpl implements PostVoteService {
 
     private void reCalculatePostVote(Long postId) {
         Post post = postRepository.getOne(postId);
-        Long voteCount = postVoteRepository.countByPost(post, VoteType.UP)
-                - postVoteRepository.countByPost(post, VoteType.DOWN);
+        Long voteCount = postVoteRepository.countByPostAndType(post, VoteType.UP)
+                - postVoteRepository.countByPostAndType(post, VoteType.DOWN);
         post.setVoteCount(voteCount);
         postRepository.save(post);
     }
