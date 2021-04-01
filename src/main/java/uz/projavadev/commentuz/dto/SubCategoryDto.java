@@ -15,7 +15,7 @@ public class SubCategoryDto {
     public static SubCategoryDto toDto(SubCategory subCategory) {
         SubCategoryDto dto = new SubCategoryDto();
         dto.setId(subCategory.getId());
-        dto.setCategoryId(subCategory.getId());
+        dto.setCategoryId(subCategory.getCategory().getId());
         dto.setName(subCategory.getName());
         return dto;
     }

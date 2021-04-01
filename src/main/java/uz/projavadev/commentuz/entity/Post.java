@@ -13,6 +13,8 @@ public class Post extends BaseEntity {
 
     private String image;
 
+    private String content;
+
     @Column(nullable = false)
     private Long viewCount = 0L;
 

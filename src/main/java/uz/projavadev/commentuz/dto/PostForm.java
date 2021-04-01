@@ -16,6 +16,8 @@ public class PostForm {
 
     private String name;
 
+    private String content;
+
     private List<Long> tagId;
 
 }
