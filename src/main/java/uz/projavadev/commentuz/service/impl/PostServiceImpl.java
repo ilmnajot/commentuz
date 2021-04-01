@@ -66,6 +66,7 @@ public class PostServiceImpl implements PostService {
     public PostListItemDto update(Long id, PostForm form) throws IOException {
         return save(postRepository.getOne(id), form);
     }
+
     @Override
     public void delete(Long id) {
         postRepository.deleteById(id);
