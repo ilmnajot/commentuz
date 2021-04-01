@@ -74,18 +74,19 @@ public class PostServiceImpl implements PostService {
 
     private PostListItemDto save(Post post, PostForm form) throws IOException {
         String filename = form.getImage().getOriginalFilename();
-        post.setImage(filename);
         post.setSubCategoryId(entityManager.getReference(SubCategory.class, form.getSubcategoryIid()));
-        Set<Tag> tags =new HashSet<>();
+        Set<Tag> tags = new HashSet<>();
         for (Long id : form.getTagId()) {
             tags.add(tagRepository.getOne(id));
         }
         post.setTags(tags);
         post.setName(form.getName());
-        postRepository.save(post);
-        String uploadDir = "post-photos/" + post.getId();
+        post.setContent(form.getContent());
+        Post post1 = postRepository.save(post);
+        String uploadDir = "E:/Upload/" + post.getCreatedBy();
+        post1.setImage(uploadDir + "/" + filename);
         saveFile(uploadDir, filename, form.getImage());
-        return new PostDto.Builder(post).build();
+        return new PostDto.Builder(postRepository.save(post1)).build();
     }
 
     private static void saveFile(String uploadDir, String fileName,

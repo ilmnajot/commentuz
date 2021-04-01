@@ -42,6 +42,7 @@ public class PostDto extends PostListItemDto {
             dto.setId(post.getId());
             dto.setName(post.getName());
             dto.setImage(post.getImage());
+            dto.setContent(post.getContent());
             dto.setTags(post.getTags().stream().map(TagDto::toDto).collect(Collectors.toSet()));
             dto.setVoteCount(post.getVoteCount());
             dto.setViewCount(post.getViewCount());

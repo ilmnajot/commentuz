@@ -13,6 +13,8 @@ public class PostListItemDto {
 
     private String image;
 
+    private String content;
+
     private Set<TagDto> tags;
 
     private Long viewCount;
