@@ -9,7 +9,7 @@ import uz.projavadev.commentuz.dto.UserDto;
 import uz.projavadev.commentuz.service.UserService;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("api/v1/user")
 public class UserController {
 
     private final UserService service;
