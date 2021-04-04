@@ -31,8 +31,8 @@ public class CommentController {
         return ResponseEntity.ok("comment deleted");
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity get(@PathVariable Long id){
-        return ResponseEntity.ok(get(id));
-    }
+//    @GetMapping("{id}")
+//    public ResponseEntity get(@PathVariable Long id){
+//        return ResponseEntity.ok(service.);
+//    }
 }

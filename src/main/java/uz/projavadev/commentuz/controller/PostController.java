@@ -32,4 +32,10 @@ public class PostController {
         service.delete(id);
         return ResponseEntity.ok("Post deleted");
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity getAll(@PathVariable Long id){
+        return ResponseEntity.ok(service.findAllBySubCategory(id));
+    }
+
 }

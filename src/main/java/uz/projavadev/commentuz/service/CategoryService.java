@@ -2,6 +2,8 @@ package uz.projavadev.commentuz.service;
 
 import uz.projavadev.commentuz.dto.CategoryDto;
 
+import java.util.List;
+
 public interface CategoryService {
 
     CategoryDto add(CategoryDto dto);
@@ -10,4 +12,5 @@ public interface CategoryService {
 
     void delete(Long id);
 
+    List<CategoryDto> getAllCategory();
 }

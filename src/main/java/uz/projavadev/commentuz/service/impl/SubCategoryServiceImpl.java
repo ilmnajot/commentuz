@@ -7,6 +7,9 @@ import uz.projavadev.commentuz.repository.CategoryRepository;
 import uz.projavadev.commentuz.repository.SubCategoryRepository;
 import uz.projavadev.commentuz.service.SubCategoryService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SubCategoryServiceImpl implements SubCategoryService {
 
@@ -39,4 +42,11 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     public void delete(Long id) {
         subCategoryRepository.deleteById(id);
     }
+
+    @Override
+    public List<SubCategoryDto> getAllSub(Long id) {
+        return subCategoryRepository.findAll().stream().map(SubCategoryDto::toDto).collect(Collectors.toList());
+    }
+
+
 }

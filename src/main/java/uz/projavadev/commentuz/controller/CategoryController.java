@@ -30,4 +30,9 @@ public class CategoryController {
         service.delete(id);
         return ResponseEntity.ok("category deleted");
     }
+
+    @GetMapping ("getAll")
+    public  ResponseEntity getAll(){
+        return ResponseEntity.ok(service.getAllCategory());
+    }
 }

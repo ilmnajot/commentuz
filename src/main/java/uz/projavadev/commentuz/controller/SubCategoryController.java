@@ -30,4 +30,10 @@ public class SubCategoryController {
         service.delete(id);
         return ResponseEntity.ok("subCategory deleted");
     }
+
+    @GetMapping("{id}")
+    public  ResponseEntity getId(@PathVariable Long id){
+        return ResponseEntity.ok(service.getAllSub(id));
+    }
+
 }

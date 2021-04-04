@@ -6,6 +6,9 @@ import uz.projavadev.commentuz.entity.Category;
 import uz.projavadev.commentuz.repository.CategoryRepository;
 import uz.projavadev.commentuz.service.CategoryService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
@@ -31,5 +34,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<CategoryDto> getAllCategory() {
+        return repository.findAll().stream().map(CategoryDto::toDto).collect(Collectors.toList());
     }
 }
