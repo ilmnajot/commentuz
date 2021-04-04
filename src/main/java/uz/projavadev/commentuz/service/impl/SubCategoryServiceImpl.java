@@ -44,9 +44,8 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     }
 
     @Override
-    public List<SubCategoryDto> getAllSub(Long id) {
-        return subCategoryRepository.findAll().stream().map(SubCategoryDto::toDto).collect(Collectors.toList());
+    public List<SubCategoryDto> getAllSub(Long CategoryId) {
+        return subCategoryRepository.findAllByCategoryId(CategoryId).stream().map(SubCategoryDto::toDto).collect(Collectors.toList());
     }
-
 
 }

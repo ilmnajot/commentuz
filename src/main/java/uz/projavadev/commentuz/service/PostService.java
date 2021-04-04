@@ -9,6 +9,7 @@ import uz.projavadev.commentuz.dto.PostListItemDto;
 import java.io.IOException;
 
 public interface PostService {
+
     Page<PostListItemDto> findAllByPostPages(Long SubCategoryId, Pageable pageable);
 
     PostDto findOne(Long id);
