@@ -49,7 +49,7 @@ public class PostVoteServiceImpl implements PostVoteService {
 
     private PostVoteDto vote(Long postId, VoteType type, String username) {
         Optional<PostVote> optionalPostVote = postVoteRepository.findByPostIdAndCreatedBy(postId, username);
-        if (optionalPostVote.isPresent()) {
+        if (!optionalPostVote.isPresent()) {
             PostVote vote = new PostVote();
             vote.setPost(entityManager.getReference(Post.class, postId));
             vote.setType(type);
