@@ -1,5 +1,6 @@
 package uz.projavadev.commentuz.controller;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.projavadev.commentuz.dto.PostForm;
@@ -34,8 +35,8 @@ public class PostController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity getAll(@PathVariable Long id){
-        return ResponseEntity.ok(service.findAllBySubCategory(id));
+    public ResponseEntity getAll(@PathVariable Long id, Pageable pageable) {
+        return ResponseEntity.ok(service.findAllByPostPages(id, pageable));
     }
 
 }
