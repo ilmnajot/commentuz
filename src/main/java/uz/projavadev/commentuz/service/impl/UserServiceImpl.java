@@ -2,7 +2,9 @@ package uz.projavadev.commentuz.service.impl;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uz.projavadev.commentuz.dto.DevAddUserDto;
 import uz.projavadev.commentuz.dto.UserDto;
+import uz.projavadev.commentuz.dto.UserRole;
 import uz.projavadev.commentuz.entity.User;
 import uz.projavadev.commentuz.exception.UserNotFoundException;
 import uz.projavadev.commentuz.repository.UserRepository;
@@ -30,7 +32,9 @@ public class UserServiceImpl implements UserService {
                         dto.getUsername(),
                         passwordEncoder.encode(dto.getPassword()),
                         dto.getEmail(),
-                        dto.getPhoneNumber()
+                        dto.getPhoneNumber(),
+                        UserRole.USER,
+                        true
                 )
         ));
     }
@@ -43,5 +47,41 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean checkPasswordLength(String password) {
         return password.length() >= 4;
+    }
+
+    @Override
+    public DevAddUserDto devCreateAdmin(DevAddUserDto dto) {
+        if (!checkPasswordLength(dto.getPassword()))
+            throw new UserNotFoundException("Length of password is lower than 4");
+        if (existsUsername(dto.getUsername())) throw new UserNotFoundException("This username is already exists");
+        return DevAddUserDto.toDto(userRepository.save(
+                new User(
+                        dto.getName(),
+                        dto.getUsername(),
+                        passwordEncoder.encode(dto.getPassword()),
+                        dto.getEmail(),
+                        dto.getPhoneNumber(),
+                        dto.getRole(),
+                        true
+                )
+        ));
+    }
+
+    @Override
+    public DevAddUserDto adminCreateModer(DevAddUserDto dto) {
+        if (!checkPasswordLength(dto.getPassword()))
+            throw new UserNotFoundException("Length of password is lower than 4");
+        if (existsUsername(dto.getUsername())) throw new UserNotFoundException("This username is already exists");
+        return DevAddUserDto.toDto(userRepository.save(
+                new User(
+                        dto.getName(),
+                        dto.getUsername(),
+                        passwordEncoder.encode(dto.getPassword()),
+                        dto.getEmail(),
+                        dto.getPhoneNumber(),
+                        UserRole.MODERATOR,
+                        true
+                )
+        ));
     }
 }

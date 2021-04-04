@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import uz.projavadev.commentuz.dto.DevAddUserDto;
 import uz.projavadev.commentuz.dto.UserDto;
 import uz.projavadev.commentuz.service.UserService;
 
@@ -21,6 +22,16 @@ public class UserController {
     @PostMapping("register")
     public ResponseEntity create(@RequestBody UserDto dto) {
         return ResponseEntity.ok(service.create(dto));
+    }
+
+    @PostMapping("devCreate")
+    public ResponseEntity createAdmin(@RequestBody DevAddUserDto dto) {
+        return ResponseEntity.ok(service.devCreateAdmin(dto));
+    }
+
+    @PostMapping("admCreate")
+    public ResponseEntity createModer(@RequestBody DevAddUserDto dto) {
+        return ResponseEntity.ok(service.adminCreateModer(dto));
     }
 
 }
