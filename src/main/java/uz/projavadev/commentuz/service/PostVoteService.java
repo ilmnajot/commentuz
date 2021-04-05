@@ -8,5 +8,5 @@ public interface PostVoteService {
 
     PostVoteDto downVote(Long postId, String username);
 
-    PostVoteDto revertVote(Long postId, String username);
+    void revertVote(Long postId, String username);
 }

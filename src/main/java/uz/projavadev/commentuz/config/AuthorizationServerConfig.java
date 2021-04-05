@@ -23,8 +23,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final BCryptPasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailsService;
 
-    @Value("temjashu")
+    @Value("${jwt.token.secret}")
     private String jwtSigningKey;
+
+    @Value("${jwt.token.access.validity}")
+    private Integer accessValidate;
+
+    @Value("${jwt.token.refresh.validity}")
+    private Integer refreshValidate;
 
     public AuthorizationServerConfig(AuthenticationManager authenticationManager,
                                      BCryptPasswordEncoder passwordEncoder,
@@ -35,7 +41,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(tokenStore())
                 .accessTokenConverter(accessTokenConverter())
                 .authenticationManager(authenticationManager)
@@ -48,7 +54,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient("web").secret(passwordEncoder.encode("Yy5jruBmmWTjDDj6"))
                 .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read", "write")
-                .resourceIds("api");
+                .resourceIds("api")
+                .accessTokenValiditySeconds(accessValidate)
+                .refreshTokenValiditySeconds(refreshValidate);
     }
 
     @Bean

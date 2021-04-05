@@ -47,4 +47,8 @@ public class PostController {
         return ResponseEntity.ok(postService.findAllByCreatedBy((userService.currentUser().get().getUsername()), pageable));
     }
 
+    @GetMapping("get/{id}")
+    public ResponseEntity getOne(@PathVariable Long id) {
+        return ResponseEntity.ok(postService.findOne(id));
+    }
 }

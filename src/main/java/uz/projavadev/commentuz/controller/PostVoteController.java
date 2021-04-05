@@ -31,6 +31,7 @@ public class PostVoteController {
 
     @PutMapping("{postId}/revert")
     public ResponseEntity revertVote(@PathVariable Long postId, Principal principal){
-        return ResponseEntity.ok(service.revertVote(postId,principal.getName()));
+        service.revertVote(postId,principal.getName());
+        return ResponseEntity.ok("vote revert");
     }
 }
