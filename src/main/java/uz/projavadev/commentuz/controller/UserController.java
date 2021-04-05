@@ -24,12 +24,12 @@ public class UserController {
         return ResponseEntity.ok(service.create(dto));
     }
 
-    @PostMapping("devCreate")
+    @PostMapping("create/admin")
     public ResponseEntity createAdmin(@RequestBody DevAddUserDto dto) {
         return ResponseEntity.ok(service.devCreateAdmin(dto));
     }
 
-    @PostMapping("admCreate")
+    @PostMapping("create/moder")
     public ResponseEntity createModer(@RequestBody DevAddUserDto dto) {
         return ResponseEntity.ok(service.adminCreateModer(dto));
     }

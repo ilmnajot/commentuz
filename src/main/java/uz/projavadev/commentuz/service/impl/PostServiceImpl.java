@@ -44,9 +44,14 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public Page<PostListItemDto> findAllByPostPages(Long SubCategoryId, Pageable pageable) {
-        return postRepository.findAllBySubCategoryId(SubCategoryId, pageable)
+    public Page<PostListItemDto> findAllByPostPages(Long subCategoryId, Pageable pageable) {
+        return postRepository.findAllBySubCategoryId(subCategoryId, pageable)
                 .map(post -> new PostDto.Builder(post).build());
+    }
+
+    @Override
+    public Page<PostListItemDto> findAllByCreatedBy(String username, Pageable pageable) {
+        return postRepository.findAllByCreatedBy(username,pageable).map(post -> new PostDto.Builder(post).build());
     }
 
     @Override

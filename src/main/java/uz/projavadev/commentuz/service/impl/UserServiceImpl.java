@@ -1,5 +1,7 @@
 package uz.projavadev.commentuz.service.impl;
 
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.projavadev.commentuz.dto.DevAddUserDto;
@@ -9,6 +11,8 @@ import uz.projavadev.commentuz.entity.User;
 import uz.projavadev.commentuz.exception.UserNotFoundException;
 import uz.projavadev.commentuz.repository.UserRepository;
 import uz.projavadev.commentuz.service.UserService;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -83,5 +87,13 @@ public class UserServiceImpl implements UserService {
                         true
                 )
         ));
+    }
+
+    public Optional<User> currentUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String username = securityContext.getAuthentication().getName();
+        Optional<User> currentUser = userRepository.findByUsername(username);
+        if (!currentUser.isPresent()) throw new UserNotFoundException("Problem with token, please re-sign in");
+        return currentUser;
     }
 }

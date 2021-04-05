@@ -10,7 +10,9 @@ import java.io.IOException;
 
 public interface PostService {
 
-    Page<PostListItemDto> findAllByPostPages(Long SubCategoryId, Pageable pageable);
+    Page<PostListItemDto> findAllByPostPages(Long subCategoryId, Pageable pageable);
+
+    Page<PostListItemDto> findAllByCreatedBy(String username, Pageable pageable);
 
     PostDto findOne(Long id);
 
