@@ -8,6 +8,7 @@ import uz.projavadev.commentuz.entity.Tag;
 import java.util.Optional;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
+
     Page<Tag> findByNameContains(String searchTerm, Pageable pageable);
 
     Optional<Tag> findById(Long id);
