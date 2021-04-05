@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostListItemDto> findAllByPostPages(Long SubCategoryId, Pageable pageable) {
-        return postRepository.findBySubCategoryId(SubCategoryId, pageable)
+        return postRepository.findAllBySubCategoryId(SubCategoryId, pageable)
                 .map(post -> new PostDto.Builder(post).build());
     }
 
@@ -74,7 +74,7 @@ public class PostServiceImpl implements PostService {
 
     private PostListItemDto save(Post post, PostForm form) throws IOException {
         String filename = form.getImage().getOriginalFilename();
-        post.setSubCategoryId(entityManager.getReference(SubCategory.class, form.getSubcategoryIid()));
+        post.setSubCategory(entityManager.getReference(SubCategory.class, form.getSubcategoryIid()));
         Set<Tag> tags = new HashSet<>();
         for (Long id : form.getTagId()) {
             tags.add(tagRepository.getOne(id));

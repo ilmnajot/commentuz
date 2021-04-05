@@ -9,6 +9,6 @@ import uz.projavadev.commentuz.entity.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    Page<Post> findBySubCategoryId(Long id, Pageable pageable);
+    Page<Post> findAllBySubCategoryId(Long id, Pageable pageable);
 
 }

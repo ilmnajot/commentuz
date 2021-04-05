@@ -25,7 +25,7 @@ public class Post extends BaseEntity {
     private Set<Tag> tags;
 
     @ManyToOne
-    private SubCategory subCategoryId;
+    private SubCategory subCategory;
 
     @Transient
     public Post incrementViewCount() {

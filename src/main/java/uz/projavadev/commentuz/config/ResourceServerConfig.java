@@ -1,6 +1,7 @@
 package uz.projavadev.commentuz.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -19,9 +20,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.requestMatchers()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/user/register").permitAll()
-                .antMatchers("/api/v1/user/login").permitAll()
-                .antMatchers("/api/v1/category/getAll").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/v1/user/register","/api/v1/user/login","/api/v1/category/getAll","/api/v1/subCategory/*","/api/v1/post/*").permitAll()
                 .anyRequest().authenticated();
     }
 }
