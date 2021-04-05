@@ -34,4 +34,6 @@ public class UserController {
         return ResponseEntity.ok(service.adminCreateModer(dto));
     }
 
+    //ishla yaxshimi?
+
 }
