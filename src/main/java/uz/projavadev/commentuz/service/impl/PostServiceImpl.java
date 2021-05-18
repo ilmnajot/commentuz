@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostListItemDto> findAllByCreatedBy(String username, Pageable pageable) {
-        return postRepository.findAllByCreatedBy(username,pageable).map(post -> new PostDto.Builder(post).build());
+        return postRepository.findAllByCreatedBy(username, pageable).map(post -> new PostDto.Builder(post).build());
     }
 
     @Override
