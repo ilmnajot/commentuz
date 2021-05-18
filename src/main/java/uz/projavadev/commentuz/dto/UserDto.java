@@ -24,9 +24,9 @@ public class UserDto {
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setUsername(user.getUsername());
-//        dto.setPassword(user.getPassword());
         dto.setEmail(user.getEmail());
         dto.setPhoneNumber(user.getPhoneNumber());
         return dto;
     }
+
 }
