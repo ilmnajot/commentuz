@@ -3,6 +3,7 @@ package uz.projavadev.commentuz.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import uz.projavadev.commentuz.entity.User;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class UserDto {

@@ -8,7 +8,7 @@ public interface SubCategoryService {
 
     SubCategoryDto add(SubCategoryDto dto);
 
-    SubCategoryDto update(Long id,SubCategoryDto dto);
+    SubCategoryDto update(Long id, SubCategoryDto dto);
 
     void delete(Long id);
 

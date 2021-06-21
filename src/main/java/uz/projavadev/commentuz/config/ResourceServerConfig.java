@@ -20,13 +20,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.requestMatchers()
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/v1/category/getAll",
-                        "/api/v1/subCategory/*","/api/v1/post/*","/api/v1/post/get/*","/api/v1/tag/search").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/v1/user/register","/api/v1/user/login").permitAll()
-                .antMatchers("/api/v1/tag/**").hasAnyAuthority("DEVELOPER","ADMINISTRATOR")
-                .antMatchers("/api/v1/category/**").hasAnyAuthority("DEVELOPER","ADMINISTRATOR")
+                .antMatchers(HttpMethod.GET, "/api/v1/category/getAll",
+                        "/api/v1/subCategory/*", "/api/v1/post/*", "/api/v1/post/get/*", "/api/v1/tag/search").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/user/register", "/api/v1/user/login").permitAll()
+                .antMatchers("/api/v1/tag/**").hasAnyAuthority("DEVELOPER", "ADMINISTRATOR")
+                .antMatchers("/api/v1/category/**").hasAnyAuthority("DEVELOPER", "ADMINISTRATOR")
                 .antMatchers("/api/v1/user/create/admin").hasAuthority("DEVELOPER")
-                .antMatchers("/api/v1/user/create/moder").hasAnyAuthority("DEVELOPER","ADMINISTRATOR")
+                .antMatchers("/api/v1/user/create/moder").hasAnyAuthority("DEVELOPER", "ADMINISTRATOR")
                 .anyRequest().authenticated();
     }
 }

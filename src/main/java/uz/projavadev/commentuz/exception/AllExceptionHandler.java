@@ -12,8 +12,6 @@ import java.util.Date;
 public class AllExceptionHandler {
 
 
-
-
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException
             (UserNotFoundException exception, WebRequest request) {

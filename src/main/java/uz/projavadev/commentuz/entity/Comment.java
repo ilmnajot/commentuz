@@ -17,5 +17,4 @@ public class Comment extends BaseEntity {
     private Post post;
 
 
-
 }

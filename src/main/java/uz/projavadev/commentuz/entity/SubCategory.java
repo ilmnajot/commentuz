@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
-public class  SubCategory extends BaseEntity {
+public class SubCategory extends BaseEntity {
 
     private String name;
 

@@ -17,7 +17,7 @@ public class DbInit {
 
     @PostConstruct
     private void postConstruct() {
-        if (!userRepository.existsByRole(UserRole.DEVELOPER)){
+        if (!userRepository.existsByRole(UserRole.DEVELOPER)) {
             User developer = new User(
                     "Javohir",
                     "temjashu",

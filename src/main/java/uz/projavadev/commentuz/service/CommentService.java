@@ -7,7 +7,7 @@ public interface CommentService {
 
     CommentDto add(CommentForm form);
 
-    CommentDto update(Long id,CommentForm form);
+    CommentDto update(Long id, CommentForm form);
 
     void delete(Long id);
 }

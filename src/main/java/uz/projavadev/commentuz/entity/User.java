@@ -28,18 +28,18 @@ public class User extends BaseEntity {
     private boolean confirmed = false;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role ;
+    private UserRole role;
 
     private String phoneNumber;
 
 
-    public User(String name, String username, String password, String email, String phoneNumber,UserRole role,boolean confirmed) {
+    public User(String name, String username, String password, String email, String phoneNumber, UserRole role, boolean confirmed) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.role=role;
-        this.confirmed=confirmed;
+        this.role = role;
+        this.confirmed = confirmed;
     }
 }

@@ -20,18 +20,18 @@ public class PostVoteController {
     }
 
     @PutMapping("{postId}/up")
-    public ResponseEntity upVote(@PathVariable Long postId, Principal principal){
-        return ResponseEntity.ok(service.upVote(postId,principal.getName()));
+    public ResponseEntity upVote(@PathVariable Long postId, Principal principal) {
+        return ResponseEntity.ok(service.upVote(postId, principal.getName()));
     }
 
     @PutMapping("{postId}/down")
-    public ResponseEntity downVote(@PathVariable Long postId,Principal principal){
-        return ResponseEntity.ok(service.downVote(postId,principal.getName()));
+    public ResponseEntity downVote(@PathVariable Long postId, Principal principal) {
+        return ResponseEntity.ok(service.downVote(postId, principal.getName()));
     }
 
     @PutMapping("{postId}/revert")
-    public ResponseEntity revertVote(@PathVariable Long postId, Principal principal){
-        service.revertVote(postId,principal.getName());
+    public ResponseEntity revertVote(@PathVariable Long postId, Principal principal) {
+        service.revertVote(postId, principal.getName());
         return ResponseEntity.ok("vote revert");
     }
 }

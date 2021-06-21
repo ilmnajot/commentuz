@@ -9,7 +9,7 @@ import uz.projavadev.commentuz.service.TagService;
 
 @RestController
 @RequestMapping("api/v1/tag")
-public class    TagController {
+public class TagController {
 
     private final TagService service;
 

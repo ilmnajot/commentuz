@@ -31,8 +31,8 @@ public class CategoryController {
         return ResponseEntity.ok("category deleted");
     }
 
-    @GetMapping ("getAll")
-    public  ResponseEntity getAll(){
+    @GetMapping("getAll")
+    public ResponseEntity getAll() {
         return ResponseEntity.ok(service.getAllCategory());
     }
 }

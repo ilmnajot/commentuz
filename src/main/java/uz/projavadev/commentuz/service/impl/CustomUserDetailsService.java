@@ -10,6 +10,7 @@ import uz.projavadev.commentuz.repository.UserRepository;
 
 import java.util.Optional;
 
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

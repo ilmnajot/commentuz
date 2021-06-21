@@ -32,7 +32,7 @@ public class SubCategoryController {
     }
 
     @GetMapping("{id}")
-    public  ResponseEntity getId(@PathVariable Long id){
+    public ResponseEntity getId(@PathVariable Long id) {
         return ResponseEntity.ok(service.getAllSub(id));
     }
 
